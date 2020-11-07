@@ -15,9 +15,16 @@ namespace crud.Controllers
         private northwndEntities db = new northwndEntities();
 
         // GET: Shippers
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
+           
         {
-            return View(db.Shippers.ToList());
+            var CompanyName = from m in db.Shippers
+                         select m;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                CompanyName = CompanyName.Where(s => s.CompanyName.Contains(searchString));
+            }
+            return View(CompanyName);
         }
 
         // GET: Shippers/Details/5
