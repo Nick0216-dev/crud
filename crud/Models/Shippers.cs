@@ -18,7 +18,7 @@ namespace crud.Models
         public int ShipperID { get; set; }
         [Required]
         public string CompanyName { get; set; }
-        [Required]
+        [StringLength(10)]
         public string Phone { get; set; }
     }
 }
