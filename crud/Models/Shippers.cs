@@ -11,11 +11,14 @@ namespace crud.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Shippers
     {
         public int ShipperID { get; set; }
+        [Required]
         public string CompanyName { get; set; }
+        [Required]
         public string Phone { get; set; }
     }
 }

@@ -77,6 +77,7 @@ namespace crud.Controllers
             {
                 return HttpNotFound();
             }
+            //ViewBag.ResultMessage = "資料有誤，請檢查";
             return View(shippers);
         }
 
