@@ -1,30 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml;
 using crud.Models;
+using PagedList;
 
 namespace crud.Controllers
 {
+
     public class HomeController : Controller
     {
         private northwndEntities db = new northwndEntities();
+        private int pageSize = 5;
 
         // GET: Shippers
-        public ActionResult Index(string searchString)
+        /*public ActionResult Index(string searchString)
            
         {
             var CompanyName = from m in db.Shippers
                          select m;
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 CompanyName = CompanyName.Where(s => s.CompanyName.Contains(searchString));
             }
+
+
             return View(CompanyName);
+        }*/
+       
+        public ActionResult Index(string name,int page = 1)
+
+        {
+            int currentPage = page < 1 ? 1 : page;
+
+            var list = db.Shippers.ToList();
+            if (!string.IsNullOrEmpty(name))
+            {
+                list = list.Where(x => x.CompanyName.Contains(name)).ToList();
+            }
+
+            var listPage = list.OrderBy(x => x.ShipperID);
+
+            IPagedList<Shippers> pagedList = listPage.ToPagedList(currentPage, pageSize);
+      
+            return View(pagedList);
         }
 
         // GET: Shippers/Details/5

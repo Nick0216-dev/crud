@@ -21,4 +21,5 @@ namespace crud.Models
         [StringLength(10)]
         public string Phone { get; set; }
     }
+
 }
